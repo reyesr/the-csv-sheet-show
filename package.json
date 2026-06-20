@@ -2,7 +2,9 @@
   "name": "csv-sheet-show",
   "displayName": "The CSV Sheet Show",
   "description": "A surprisingly serious and fast table viewer, editor and data manipulation tool",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "publisher": "reyesr",
+  "icon": "images/icon.png",
   "license": "Apache-2.0",
   "engines": {
     "vscode": "^1.120.0"
