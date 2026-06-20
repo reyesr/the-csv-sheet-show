@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+@custom-variant vscode-dark (&:where(body.vscode-dark *));
+@custom-variant vscode-light (&:where(body.vscode-light *));
+@custom-variant vscode-high-contrast (&:where(body.vscode-high-contrast *));
+
+/*
+ * Semantic token layer (Design System §02–06). Each name maps to a VS Code theme token
+ * (with a fallback where themes may not define one), so components consume semantic
+ * utilities — bg-surface, text-fg-muted, rounded-sm — instead of raw var(--vscode-*) strings.
+ * Tailwind's default spacing already satisfies the 4px grid (h-7 = 28px, h-5 = 20px), so only
+ * colours, the type scale, radii and elevation are (re)defined here.
+ */
+@theme {
+	/* surfaces & borders */
+	--color-surface: var(--vscode-editor-background);
+	--color-chrome: var(--vscode-sideBar-background);
+	--color-widget: var(--vscode-editorWidget-background, var(--vscode-sideBar-background));
+	--color-border: var(--vscode-panel-border);
+	/*
+	 * Selected/active disclosure surface (§07): a subtle accent wash shared by an open
+	 * disclosure tab and the panel it controls, so the pairing reads as one selected unit.
+	 * Tinted from the editor background toward the theme's focus colour — visible but quiet,
+	 * and self-correcting across the light, dark and high-contrast themes VS Code imposes.
+	 */
+	--color-selected-blend-in: rgb(200 200 200 / 1);
+	--color-selected: color-mix(in srgb, var(--vscode-editor-background) 90%, var(--color-selected-blend-in) 4%);
+	/* text */
+	--color-fg: var(--vscode-foreground);
+	--color-fg-muted: var(--vscode-descriptionForeground);
+	/* actions */
+	--color-primary: var(--vscode-button-background);
+	--color-primary-fg: var(--vscode-button-foreground);
+	--color-primary-hover: var(--vscode-button-hoverBackground);
+	--color-secondary: var(--vscode-button-secondaryBackground);
+	--color-secondary-fg: var(--vscode-button-secondaryForeground);
+	--color-secondary-hover: var(--vscode-button-secondaryHoverBackground);
+	/* inputs, lists, focus, links, badge, find, error */
+	--color-input: var(--vscode-input-background);
+	--color-input-fg: var(--vscode-input-foreground);
+	--color-input-border: var(--vscode-input-border, var(--vscode-panel-border));
+	--color-hover: var(--vscode-list-hoverBackground);
+	--color-sel: var(--vscode-list-activeSelectionBackground);
+	--color-sel-fg: var(--vscode-list-activeSelectionForeground);
+	--color-focus: var(--vscode-focusBorder);
+	--color-link: var(--vscode-textLink-foreground);
+	--color-badge: var(--vscode-badge-background, var(--vscode-focusBorder));
+	--color-badge-fg: var(--vscode-badge-foreground, var(--vscode-editor-background));
+	--color-match: var(--vscode-editor-findMatchBackground);
+	--color-match-wash: var(--vscode-editor-findMatchHighlightBackground);
+	--color-match-border: var(--vscode-editor-findMatchBorder);
+	--color-error-border: var(--vscode-inputValidation-errorBorder, var(--vscode-errorForeground));
+	--color-error: var(--vscode-errorForeground);
+	/* type scale (§04) */
+	--text-micro: 9px;
+	--text-chevron: 10px;
+	--text-label: 11px;
+	--text-control: 12px;
+	--text-base: 13px;
+	/* radii (§06): default rounded-sm = 2px; md reserved for colour-picker swatches */
+	--radius-sm: 2px;
+	--radius-md: 6px;
+}
+
+/*
+ * Elevation 1 (§06): the single shadow used by everything that floats over the grid —
+ * popovers, menus, the find bar and the expanded formula field. Docked surfaces stay flat.
+ */
+@utility shadow-elevated {
+	box-shadow: 0 8px 20px rgb(0 0 0 / 0.35);
+}
+
+@layer base {
+	:root {
+		font-family: var(--vscode-font-family, system-ui, sans-serif);
+		font-size: var(--vscode-font-size, 13px);
+	}
+
+	body {
+		margin: 0;
+		color: var(--vscode-foreground);
+		background: var(--vscode-editor-background);
+	}
+
+	body.vscode-dark {
+		color-scheme: dark;
+	}
+
+	body.vscode-light {
+		color-scheme: light;
+	}
+
+	body.vscode-high-contrast {
+		color-scheme: dark;
+	}
+
+	#root {
+		min-height: 100vh;
+	}
+
+	/*
+	 * The only token-derived tint in the system (§02, §07): a faint wash relative to the editor
+	 * background, warm in light themes and slightly lighter in dark. Shared by the formula bar,
+	 * the in-cell editor and the header editor so no edit surface hard-codes a colour.
+	 */
+	.edit-tint {
+		background-color: var(--vscode-editor-background);
+		color: var(--vscode-input-foreground);
+		caret-color: var(--vscode-input-foreground);
+	}
+
+	body.vscode-light .edit-tint {
+		/* Yellow-ish and slightly darker than the editor background. */
+		background-color: color-mix(in srgb, var(--vscode-editor-background) 85%, #d9b300 15%);
+	}
+
+	body.vscode-dark .edit-tint {
+		/* Slightly lighter than the editor background. */
+		background-color: color-mix(in srgb, var(--vscode-editor-background) 90%, #ffffff 10%);
+	}
+
+	*:focus-visible {
+		outline: 1px solid var(--vscode-focusBorder);
+		outline-offset: 2px;
+	}
+}

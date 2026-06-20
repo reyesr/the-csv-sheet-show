@@ -1,0 +1,10 @@
+{
+    "source": "https://www.stats.govt.nz/large-datasets/csv-files-for-download/",
+    "row-count": 55621,
+    "column-count": 10,
+    "has-header": true,
+    "encoding": "utf-8",
+    "line-ending": "LF",
+    "cell-separator": ",",
+    "decimal-separator": ""
+}

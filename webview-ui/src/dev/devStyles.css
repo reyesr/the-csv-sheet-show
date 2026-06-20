@@ -1,0 +1,163 @@
+html,
+body,
+#root {
+	height: 100%;
+	margin: 0;
+}
+
+body {
+	background: var(--vscode-editor-background);
+	color: var(--vscode-foreground);
+}
+
+.dev-shell {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.dev-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	padding: 0.5rem 0.75rem;
+	border-bottom: 1px solid var(--vscode-panel-border);
+	background: var(--vscode-sideBar-background);
+	font: 12px/1.4 system-ui, sans-serif;
+}
+
+.dev-toolbar__group {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.dev-toolbar button,
+.dev-toolbar select {
+	height: 1.75rem;
+	border: 1px solid var(--vscode-input-border);
+	background: var(--vscode-input-background);
+	color: var(--vscode-input-foreground);
+}
+
+.dev-toolbar button {
+	padding: 0 0.5rem;
+	cursor: pointer;
+}
+
+.dev-toolbar label {
+	display: flex;
+	align-items: center;
+	gap: 0.35rem;
+}
+
+.dev-muted {
+	color: var(--vscode-descriptionForeground);
+}
+
+.dev-faults {
+	border-bottom: 1px solid var(--vscode-panel-border);
+	background: var(--vscode-sideBar-background);
+	font: 12px/1.4 system-ui, sans-serif;
+}
+
+.dev-faults--active {
+	border-left: 3px solid var(--vscode-editor-findMatchBorder, #cca700);
+}
+
+.dev-faults__summary {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	width: 100%;
+	padding: 0.4rem 0.75rem;
+	border: none;
+	background: transparent;
+	color: var(--vscode-foreground);
+	cursor: pointer;
+	text-align: left;
+	font: inherit;
+}
+
+.dev-faults__caret {
+	width: 0.9rem;
+	color: var(--vscode-descriptionForeground);
+}
+
+.dev-faults__badge {
+	padding: 0 0.4rem;
+	border-radius: 999px;
+	background: var(--vscode-editor-findMatchBorder, #cca700);
+	color: var(--vscode-editor-background);
+	font-size: 11px;
+	font-weight: 600;
+}
+
+.dev-faults__panel {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+	gap: 0.5rem 1rem;
+	padding: 0.25rem 0.75rem 0.75rem 1.5rem;
+}
+
+.dev-fault {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
+}
+
+.dev-fault input[type='checkbox'] {
+	margin-top: 0.15rem;
+}
+
+.dev-fault__body {
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+}
+
+.dev-fault__label {
+	font-weight: 600;
+}
+
+.dev-fault__description {
+	font-size: 11px;
+}
+
+.dev-fault__reason {
+	display: flex;
+	align-items: center;
+	gap: 0.35rem;
+	margin-top: 0.25rem;
+	font-size: 11px;
+}
+
+.dev-fault__reason select {
+	height: 1.6rem;
+	border: 1px solid var(--vscode-input-border);
+	background: var(--vscode-input-background);
+	color: var(--vscode-input-foreground);
+}
+
+.dev-faults__actions {
+	grid-column: 1 / -1;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.dev-faults__actions button {
+	height: 1.6rem;
+	padding: 0 0.6rem;
+	border: 1px solid var(--vscode-input-border);
+	background: var(--vscode-input-background);
+	color: var(--vscode-input-foreground);
+	cursor: pointer;
+}
+
+.dev-faults__actions button:disabled {
+	opacity: 0.5;
+	cursor: default;
+}

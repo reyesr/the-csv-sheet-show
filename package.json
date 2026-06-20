@@ -1,0 +1,116 @@
+{
+  "name": "csv-sheet-show",
+  "displayName": "The CSV Sheet Show",
+  "description": "A surprisingly serious and fast table viewer, editor and data manipulation tool",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "engines": {
+    "vscode": "^1.120.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reyesr/the-csv-sheet-show.git"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "csv-sheet-show.find",
+        "title": "Find in CSV",
+        "category": "CSV Sheet Show"
+      },
+      {
+        "command": "csv-sheet-show.findNext",
+        "title": "Find Next in CSV",
+        "category": "CSV Sheet Show"
+      },
+      {
+        "command": "csv-sheet-show.findPrevious",
+        "title": "Find Previous in CSV",
+        "category": "CSV Sheet Show"
+      },
+      {
+        "command": "csv-sheet-show.closeFind",
+        "title": "Close CSV Find",
+        "category": "CSV Sheet Show"
+      }
+    ],
+    "customEditors": [
+      {
+        "viewType": "csv-sheet-show.csvViewer",
+        "displayName": "CSV Sheet Viewer",
+        "selector": [
+          {
+            "filenamePattern": "*.csv"
+          }
+        ]
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "csv-sheet-show.find",
+        "key": "ctrl+f",
+        "mac": "cmd+f",
+        "when": "webviewId == 'csv-sheet-show.csvViewer'"
+      }
+    ],
+    "configuration": {
+      "title": "CSV Sheet Show",
+      "properties": {
+        "csv-sheet-show.duckdbPath": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Path to the `duckdb` executable used by the **Run DuckDB** tool. Leave empty to use `duckdb` from your PATH."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && npm run build:webview && node esbuild.js",
+    "watch": "npm-run-all -p watch:extension watch:tsc watch:webview",
+    "watch:extension": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "watch:webview": "vite --config webview-ui/vite.config.mts",
+    "dev:webview": "vite --config webview-ui/vite.config.mts --open /dev.html",
+    "build:webview": "vite build --config webview-ui/vite.config.mts",
+    "package": "npm run check-types && npm run lint && npm run build:webview && node esbuild.js --production",
+    "compile-tests": "node -e \"require('fs').rmSync('out', { recursive: true, force: true })\" && tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit && npm run check-types:webview",
+    "check-types:webview": "tsc --noEmit --project webview-ui/tsconfig.json",
+    "lint": "eslint src",
+    "test": "vscode-test",
+    "create-vsix": "npx @vscode/vsce package  --no-dependencies"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.19.20",
+    "@types/vscode": "^1.120.0",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
+    "esbuild": "^0.27.3",
+    "eslint": "^9.39.3",
+    "npm-run-all": "^4.1.5",
+    "tailwindcss": "^4.3.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.1",
+    "vite": "^8.0.16",
+    "vite-plugin-solid": "^2.11.12"
+  },
+  "dependencies": {
+    "@tanstack/solid-table": "^8.21.3",
+    "@tanstack/solid-virtual": "^3.13.28",
+    "chardet": "^2.1.1",
+    "clsx": "^2.1.1",
+    "iconv-lite": "^0.7.2",
+    "solid-js": "^1.9.13",
+    "tailwind-merge": "^3.6.0"
+  }
+}

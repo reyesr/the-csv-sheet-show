@@ -1,0 +1,4 @@
+#Used to unignore files and directories in the project for agends
+!local/
+!@docs/
+out/
